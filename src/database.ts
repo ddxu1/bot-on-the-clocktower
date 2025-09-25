@@ -1,11 +1,11 @@
 // Simple SQLite Database for Game State
-import sqlite3 from 'sqlite3';
-import { GameState, GameAction } from './types';
+import sqlite3 from "sqlite3";
+import { GameState, GameAction } from "./types";
 
 export class GameDatabase {
   private db: sqlite3.Database;
 
-  constructor(dbPath: string = './clocktower.db') {
+  constructor(dbPath: string = "./clocktower.db") {
     this.db = new sqlite3.Database(dbPath);
     this.initializeTables();
   }
@@ -31,9 +31,9 @@ export class GameDatabase {
 
     this.db.exec(createTables, (err) => {
       if (err) {
-        console.error('Failed to create tables:', err);
+        console.error("Failed to create tables:", err);
       } else {
-        console.log('✅ Database initialized');
+        console.log("✅ Database initialized");
       }
     });
   }
@@ -50,7 +50,7 @@ export class GameDatabase {
         JSON.stringify(gameState),
         gameState.created_at,
         gameState.updated_at,
-        function(err) {
+        function (err) {
           if (err) reject(err);
           else resolve();
         }
@@ -62,7 +62,7 @@ export class GameDatabase {
   async loadGame(gameId: string): Promise<GameState | null> {
     return new Promise((resolve, reject) => {
       this.db.get(
-        'SELECT state FROM games WHERE id = ?',
+        "SELECT state FROM games WHERE id = ?",
         [gameId],
         (err, row: any) => {
           if (err) {
@@ -89,7 +89,7 @@ export class GameDatabase {
         action.type,
         JSON.stringify(action.payload),
         action.timestamp,
-        function(err) {
+        function (err) {
           if (err) reject(err);
           else resolve();
         }
@@ -101,17 +101,17 @@ export class GameDatabase {
   async getGameHistory(gameId: string): Promise<GameAction[]> {
     return new Promise((resolve, reject) => {
       this.db.all(
-        'SELECT * FROM game_actions WHERE game_id = ? ORDER BY timestamp',
+        "SELECT * FROM game_actions WHERE game_id = ? ORDER BY timestamp",
         [gameId],
         (err, rows: any[]) => {
           if (err) {
             reject(err);
           } else {
-            const actions = rows.map(row => ({
+            const actions = rows.map((row) => ({
               type: row.type,
               payload: JSON.parse(row.payload),
               game_id: row.game_id,
-              timestamp: row.timestamp
+              timestamp: row.timestamp,
             }));
             resolve(actions);
           }
@@ -123,13 +123,13 @@ export class GameDatabase {
   async getAllGames(): Promise<GameState[]> {
     return new Promise((resolve, reject) => {
       this.db.all(
-        'SELECT state FROM games ORDER BY updated_at DESC',
+        "SELECT state FROM games ORDER BY updated_at DESC",
         [],
         (err, rows: any[]) => {
           if (err) {
             reject(err);
           } else {
-            const games = rows.map(row => JSON.parse(row.state));
+            const games = rows.map((row) => JSON.parse(row.state));
             resolve(games);
           }
         }

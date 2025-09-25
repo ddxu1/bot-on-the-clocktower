@@ -1,17 +1,34 @@
 // Simple Game Engine Types
 
-export type Phase = 'LOBBY' | 'NIGHT' | 'DAY' | 'ENDED';
-export type Alignment = 'GOOD' | 'EVIL';
+export type Phase = "LOBBY" | "NIGHT" | "DAY" | "ENDED";
+export type Alignment = "GOOD" | "EVIL";
 export type Role =
   // Townsfolk
-  'WASHERWOMAN' | 'LIBRARIAN' | 'INVESTIGATOR' | 'CHEF' | 'EMPATH' | 'FORTUNE_TELLER' |
-  'UNDERTAKER' | 'MONK' | 'RAVENKEEPER' | 'VIRGIN' | 'SLAYER' | 'SOLDIER' | 'MAYOR' |
+  | "WASHERWOMAN"
+  | "LIBRARIAN"
+  | "INVESTIGATOR"
+  | "CHEF"
+  | "EMPATH"
+  | "FORTUNE_TELLER"
+  | "UNDERTAKER"
+  | "MONK"
+  | "RAVENKEEPER"
+  | "VIRGIN"
+  | "SLAYER"
+  | "SOLDIER"
+  | "MAYOR"
   // Outsiders
-  'BUTLER' | 'DRUNK' | 'RECLUSE' | 'SAINT' |
+  | "BUTLER"
+  | "DRUNK"
+  | "RECLUSE"
+  | "SAINT"
   // Minions
-  'POISONER' | 'SPY' | 'SCARLET_WOMAN' | 'BARON' |
+  | "POISONER"
+  | "SPY"
+  | "SCARLET_WOMAN"
+  | "BARON"
   // Demon
-  'IMP';
+  | "IMP";
 
 export interface Player {
   id: string;
@@ -47,8 +64,16 @@ export interface NightAction {
 
 export interface PlayerInfo {
   player_id: string;
-  information_type: 'WASHERWOMAN' | 'LIBRARIAN' | 'INVESTIGATOR' | 'CHEF' | 'EMPATH' |
-                   'FORTUNE_TELLER' | 'UNDERTAKER' | 'RAVENKEEPER' | 'SPY';
+  information_type:
+    | "WASHERWOMAN"
+    | "LIBRARIAN"
+    | "INVESTIGATOR"
+    | "CHEF"
+    | "EMPATH"
+    | "FORTUNE_TELLER"
+    | "UNDERTAKER"
+    | "RAVENKEEPER"
+    | "SPY";
   information: any; // Role-specific information
   night_received: number;
 }
@@ -72,11 +97,26 @@ export interface GameState {
 }
 
 export interface GameAction {
-  type: 'CREATE_GAME' | 'JOIN_GAME' | 'ASSIGN_ROLES' | 'START_GAME' | 'ADVANCE_PHASE' |
-        'NOMINATE' | 'VOTE' | 'CLOSE_NOMINATION' | 'EXECUTE_PLAYER' | 'END_GAME' |
-        'NIGHT_ACTION' | 'SLAYER_SHOT' | 'POISON_PLAYER' | 'MONK_PROTECT' |
-        'FORTUNE_TELLER_CHECK' | 'BUTLER_CHOOSE_MASTER' | 'VIRGIN_TRIGGER' |
-        'RAVENKEEPER_LEARN' | 'SPY_LEARN_GRIMOIRE';
+  type:
+    | "CREATE_GAME"
+    | "JOIN_GAME"
+    | "ASSIGN_ROLES"
+    | "START_GAME"
+    | "ADVANCE_PHASE"
+    | "NOMINATE"
+    | "VOTE"
+    | "CLOSE_NOMINATION"
+    | "EXECUTE_PLAYER"
+    | "END_GAME"
+    | "NIGHT_ACTION"
+    | "SLAYER_SHOT"
+    | "POISON_PLAYER"
+    | "MONK_PROTECT"
+    | "FORTUNE_TELLER_CHECK"
+    | "BUTLER_CHOOSE_MASTER"
+    | "VIRGIN_TRIGGER"
+    | "RAVENKEEPER_LEARN"
+    | "SPY_LEARN_GRIMOIRE";
   payload: any;
   game_id: string;
   timestamp: string;
